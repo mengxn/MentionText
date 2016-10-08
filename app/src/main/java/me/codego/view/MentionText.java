@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class MentionText {
 
     public static SpannableString apply(String text) {
-        Pattern pattern = Pattern.compile("@[\\w]+");
+        Pattern pattern = Pattern.compile("[@|#][\\w]+");
         Matcher matcher = pattern.matcher(text);
         SpannableString spannableString = new SpannableString(text);
         while (matcher.find()) {
