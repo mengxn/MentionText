@@ -13,8 +13,23 @@ import java.util.regex.Pattern;
 
 public class MentionText {
 
-    public static SpannableString apply(String text) {
-        Pattern pattern = Pattern.compile("[@|#][\\w]+");
+    private String regex;
+    private static final String DEFAULT_PATTERN="[@|#]\\w+";
+
+    private MentionText(String regex) {
+        this.regex = regex;
+    }
+
+    public static MentionText from() {
+        return new MentionText(DEFAULT_PATTERN);
+    }
+
+    public static MentionText from(String regex) {
+        return new MentionText(regex);
+    }
+
+    public SpannableString apply(String text) {
+        Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
         SpannableString spannableString = new SpannableString(text);
         while (matcher.find()) {

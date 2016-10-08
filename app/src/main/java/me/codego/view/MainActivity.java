@@ -14,6 +14,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         textView = (TextView) findViewById(R.id.text);
-        textView.setText(MentionText.apply("@lisi hello world@zhangsan nihao#你好 这个主题不错"));
+        textView.setText(MentionText.from().apply("@lisi hello world@zhangsan nihao#你好 这个主题不错"));
     }
 }
