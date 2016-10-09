@@ -14,18 +14,30 @@ import java.util.regex.Pattern;
 public class MentionText {
 
     private String regex;
-    private static final String DEFAULT_PATTERN="[@|#]\\w+";
+    private int color;
 
-    private MentionText(String regex) {
+    private static final String DEFAULT_PATTERN = "[@|#]\\w+";
+    private static final int DEFAULT_COLOR = 0xffff0000;
+
+    private MentionText(String regex, int color) {
         this.regex = regex;
+        this.color = color;
     }
 
     public static MentionText from() {
-        return new MentionText(DEFAULT_PATTERN);
+        return from(DEFAULT_PATTERN, DEFAULT_COLOR);
     }
 
     public static MentionText from(String regex) {
-        return new MentionText(regex);
+        return from(regex, DEFAULT_COLOR);
+    }
+
+    public static MentionText from(int color) {
+        return from(DEFAULT_PATTERN, color);
+    }
+
+    public static MentionText from(String regex, int color) {
+        return new MentionText(regex, color);
     }
 
     public SpannableString apply(String text) {
@@ -33,7 +45,7 @@ public class MentionText {
         Matcher matcher = pattern.matcher(text);
         SpannableString spannableString = new SpannableString(text);
         while (matcher.find()) {
-            spannableString.setSpan(new ForegroundColorSpan(0xffff0000), matcher.start(), matcher.end(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(color), matcher.start(), matcher.end(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         }
         return spannableString;
     }
