@@ -45,7 +45,7 @@ public class MentionText {
         Matcher matcher = pattern.matcher(text);
         SpannableString spannableString = new SpannableString(text);
         while (matcher.find()) {
-            spannableString.setSpan(new ForegroundColorSpan(color), matcher.start(), matcher.end(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(color), matcher.start(), matcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         return spannableString;
     }
