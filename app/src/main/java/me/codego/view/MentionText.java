@@ -1,8 +1,10 @@
 package me.codego.view;
 
-import android.text.SpannableString;
+import android.text.Editable;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
+import android.widget.TextView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,13 +42,29 @@ public class MentionText {
         return new MentionText(regex, color);
     }
 
-    public SpannableString apply(String text) {
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(text);
-        SpannableString spannableString = new SpannableString(text);
-        while (matcher.find()) {
-            spannableString.setSpan(new ForegroundColorSpan(color), matcher.start(), matcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    public void apply(TextView textView) {
+        if (textView == null) {
+            return;
         }
-        return spannableString;
+        textView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(editable.toString());
+                while (matcher.find()) {
+                    editable.setSpan(new ForegroundColorSpan(color), matcher.start(), matcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+            }
+        });
     }
 }
