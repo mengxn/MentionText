@@ -4,6 +4,7 @@ import android.text.Editable;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.regex.Matcher;
@@ -42,14 +43,24 @@ public class MentionText {
         return new MentionText(regex, color);
     }
 
-    public void apply(TextView textView) {
+    public void apply(final TextView textView) {
         if (textView == null) {
             return;
         }
         textView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                if (textView instanceof EditText) {
+                    if (count == 1 && after == 0 && s.charAt(start) == ' ') {
+                        String str = s.toString();
+                        int index = str.lastIndexOf('@', start);
+                        if (index >= 0) {
+                            str = str.substring(0, index) + str.substring(start + 1);
+                            textView.setText(str);
+                            ((EditText) textView).setSelection(index);
+                        }
+                    }
+                }
             }
 
             @Override
