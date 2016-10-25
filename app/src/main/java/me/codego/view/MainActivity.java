@@ -1,5 +1,6 @@
 package me.codego.view;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.text);
 
         MentionText.from().apply(editText);
-        MentionText.from().apply(textView);
+        MentionText.from(Color.BLUE).apply(textView);
 
         textView.setText("@lisi hello world@zhangsan nihao#你好 这个主题不错");
     }

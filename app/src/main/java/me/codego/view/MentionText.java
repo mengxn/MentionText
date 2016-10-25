@@ -41,7 +41,7 @@ public class MentionText {
         return from(regex, DEFAULT_COLOR);
     }
 
-    public static MentionText FROM(int color) {
+    public static MentionText from(int color) {
         return from(DEFAULT_PATTERN, color);
     }
 
