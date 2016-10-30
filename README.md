@@ -19,3 +19,12 @@
 
 ###TextView
 同EditText
+
+### 效果图
+
+![demo](image/device-2016-10-30-212621.png)
+
+### TODO
+
+- custom color
+
